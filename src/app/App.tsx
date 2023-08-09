@@ -19,7 +19,7 @@ const buyMeCoffeUrl = "https://www.buymeacoffee.com/russiafailedstate";
 
 const App: FunctionComponent = React.memo(() => {
   const [data, setDate] = React.useState<Array<ILossModel>>([]);
-  const [maxTotal] = React.useState<number>(18000);
+  const [maxTotal] = React.useState<number>(15000);
 
   useEffect(() => {
     getDataList().then((items) => {
