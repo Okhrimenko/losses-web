@@ -28,15 +28,14 @@ const App: FunctionComponent = React.memo(() => {
   }, []);
 
   return (
-    <div className="App">
+    <div>
       <AppBar color="default" position="sticky">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Documenting Russian Equipment Losses During The Russian Invasion Of
-            Ukraine
+            {"Documenting Russian Equipment Losses During The Russian Invasion Of Ukraine"}
           </Typography>
           <IconButton
-            aria-label="donate"
+            aria-label="donate" color="warning"
             onClick={() => window.open(buyMeCoffeUrl)}
           >
             <CoffeeTwoToneIcon />
@@ -44,8 +43,8 @@ const App: FunctionComponent = React.memo(() => {
         </Toolbar>
       </AppBar>
 
-      <div style={{ width: "90%", height: 500 }}>
-        <div>
+      <div style={{ width: "95%", height: 500, marginTop: 50 }}>
+        <div className="App">
           Total count of <b>Losses</b> vehicles and equipment
         </div>
 
