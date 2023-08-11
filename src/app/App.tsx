@@ -12,7 +12,7 @@ import {
   Area,
   Legend,
 } from "recharts";
-import { Container, Paper, Grid, Box, Typography } from "@mui/material";
+import { Container, Paper, Grid, Box } from "@mui/material";
 
 import Header from "../components/header/Header";
 import OverviewTodayLosses from "../components/overviewTodayLosses/OverviewTodayLosses";
