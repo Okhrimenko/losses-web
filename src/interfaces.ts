@@ -8,3 +8,11 @@ export interface ILossModel {
     Text: string;
     Date: Date;  
 }
+
+export enum LossType {
+    total = "Total",
+    abandoned = "Abandoned",
+    captured = "Captured",
+    damaged = "Damaged",
+    destroyed = "Destroyed"
+}

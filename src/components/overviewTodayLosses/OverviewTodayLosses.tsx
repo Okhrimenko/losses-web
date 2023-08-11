@@ -29,12 +29,7 @@ const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = ({
   return (
     <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
       {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          minHeight="140px"
-        >
+        <Box display="flex" justifyContent="center" alignItems="center">
           <CircularProgress />
         </Box>
       ) : (
@@ -58,12 +53,12 @@ const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = ({
               </SvgIcon>
             </Avatar>
           </Stack>
-          <Stack direction="row" justifyContent="space-between">
-            <Typography variant="h4">{`Total: ${onToday?.Total}`}</Typography>
-            <Typography variant="h4">{`Destroyed: ${onToday?.Destroyed}`}</Typography>
-            <Typography variant="h4">{`Captured: ${onToday?.Captured}`}</Typography>
-            <Typography variant="h4">{`Damaged: ${onToday?.Damaged}`}</Typography>
-            <Typography variant="h4">{`Abandoned: ${onToday?.Abandoned}`}</Typography>
+          <Stack  direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between"  spacing={3}>
+              <Typography variant="h4">{`Total ${onToday?.Total}`}</Typography>
+              <Typography variant="h4">{`Destroyed ${onToday?.Destroyed}`}</Typography>
+              <Typography variant="h4">{`Captured ${onToday?.Captured}`}</Typography>
+              <Typography variant="h4">{`Damaged ${onToday?.Damaged}`}</Typography>
+              <Typography variant="h4">{`Abandoned ${onToday?.Abandoned}`}</Typography>
           </Stack>
         </Stack>
       )}
