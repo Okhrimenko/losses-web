@@ -12,76 +12,79 @@ import {
   Area,
   Legend,
 } from "recharts";
-import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
-import CoffeeTwoToneIcon from "@mui/icons-material/CoffeeTwoTone";
+import { Container, Paper, Grid, Box } from "@mui/material";
 
-const buyMeCoffeUrl = "https://www.buymeacoffee.com/russiafailedstate";
+import Header from "../components/header/Header";
+import OverviewTodayLosses from "../components/overviewTodayLosses/OverviewTodayLosses";
 
 const App: FunctionComponent = React.memo(() => {
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [data, setDate] = React.useState<Array<ILossModel>>([]);
   const [maxTotal] = React.useState<number>(15000);
 
   useEffect(() => {
     getDataList().then((items) => {
       setDate(items);
+      setIsLoading(false);
     });
   }, []);
 
   return (
-    <div>
-      <AppBar color="default" position="sticky">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {"Documenting Russian Equipment Losses During The Russian Invasion Of Ukraine"}
-          </Typography>
-          <IconButton
-            aria-label="donate" color="warning"
-            onClick={() => window.open(buyMeCoffeUrl)}
-          >
-            <CoffeeTwoToneIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+    <Box className="Main">
+      <Header />
+      <Container maxWidth={false} sx={{ mt: 2, mb: 2 }}>
+        <Grid container>
+          <Grid item xs={12} md={12} lg={12}>
+              <OverviewTodayLosses data={data} isLoading={isLoading}/>
+          </Grid>
+        </Grid>
+      <Grid container>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper>
+            <div style={{height: 500, marginTop: 20 }}>
+              <div className="App">
+                Total count of <b>Losses</b> vehicles and equipment
+              </div>
+              <ResponsiveContainer>
+                <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="Date" />
+                  <YAxis type="number" domain={[0, maxTotal]} />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="Total"
+                    stroke="red"
+                    fill="red"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="Destroyed"
+                    stroke="#2224d8"
+                    fill="#2224d8"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="Captured"
+                    stroke="#8884d8"
+                    fill="#8884d8"
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="Damaged"
+                    stroke="#82ca9d"
+                    fill="#82ca9d"
+                  />
 
-      <div style={{ width: "95%", height: 500, marginTop: 50 }}>
-        <div className="App">
-          Total count of <b>Losses</b> vehicles and equipment
-        </div>
-
-        <ResponsiveContainer>
-          <AreaChart
-            data={data}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="Date" />
-            <YAxis type="number" domain={[0, maxTotal]} />
-            <Tooltip />
-            <Area type="monotone" dataKey="Total" stroke="red" fill="red" />
-            <Area
-              type="monotone"
-              dataKey="Destroyed"
-              stroke="#2224d8"
-              fill="#2224d8"
-            />
-            <Area
-              type="monotone"
-              dataKey="Captured"
-              stroke="#8884d8"
-              fill="#8884d8"
-            />
-            <Area
-              type="monotone"
-              dataKey="Damaged"
-              stroke="#82ca9d"
-              fill="#82ca9d"
-            />
-
-            <Legend />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+                  <Legend />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </Paper>
+        </Grid>
+      </Grid>
+      </Container>
+    </Box>
   );
 });
 
