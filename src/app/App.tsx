@@ -12,7 +12,7 @@ import {
   Area,
   Legend,
 } from "recharts";
-import { Container, Paper, Grid, Box } from "@mui/material";
+import { Container, Paper, Grid, Box, Typography } from "@mui/material";
 
 import Header from "../components/header/Header";
 import OverviewTodayLosses from "../components/overviewTodayLosses/OverviewTodayLosses";
@@ -34,7 +34,7 @@ const App: FunctionComponent = React.memo(() => {
       <Header />
       <Container maxWidth={false} sx={{ mt: 2, mb: 2 }}>
         <Grid container>
-          <Grid item xs={12} md={12} lg={12}>
+          <Grid item xs={12} md={12} lg={12}>           
               <OverviewTodayLosses data={data} isLoading={isLoading}/>
           </Grid>
         </Grid>
