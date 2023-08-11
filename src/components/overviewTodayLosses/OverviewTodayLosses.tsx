@@ -27,9 +27,9 @@ const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = ({
   }, [data]);
 
   return (
-    <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+    <Paper sx={{ p: 2, display: "flex", flexDirection: "column", minHeight:'154' }}>
       {isLoading ? (
-        <Box display="flex" justifyContent="center" alignItems="center">
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight={154}>
           <CircularProgress />
         </Box>
       ) : (
