@@ -1,6 +1,10 @@
 import { FunctionComponent } from "react";
 import ArrowUpIcon from "@heroicons/react/24/solid/ArrowUpIcon";
-import FireIcon from "@heroicons/react/24/solid/FireIcon";
+import LocalFireDepartmentOutlinedIcon from "@mui/icons-material/LocalFireDepartmentOutlined";
+import AgricultureOutlinedIcon from "@mui/icons-material/AgricultureOutlined";
+import DangerousOutlinedIcon from "@mui/icons-material/DangerousOutlined";
+import AlbumOutlinedIcon from "@mui/icons-material/AlbumOutlined";
+import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import {
   Avatar,
   Card,
@@ -21,6 +25,21 @@ interface IProps {
 
 const OverviewCard: FunctionComponent<IProps> = (props) => {
   const { isLoading, name, difference, sx, value } = props;
+
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "Total":
+        return <AlbumOutlinedIcon />;
+      case "Captured":
+        return <AgricultureOutlinedIcon />;
+      case "Destroyed":
+        return <DangerousOutlinedIcon />;
+      case "Abandoned":
+        return <ForestOutlinedIcon />;
+      default:
+        return <LocalFireDepartmentOutlinedIcon />;
+    }
+  };
 
   return (
     <Card sx={sx}>
@@ -48,9 +67,7 @@ const OverviewCard: FunctionComponent<IProps> = (props) => {
               width: 56,
             }}
           >
-            <SvgIcon>
-              <FireIcon />
-            </SvgIcon>
+            <SvgIcon>{getIcon(name)}</SvgIcon>
           </Avatar>
         </Stack>
         <Stack alignItems="center" direction="row" spacing={2} sx={{ mt: 2 }}>
