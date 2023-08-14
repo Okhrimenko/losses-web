@@ -1,7 +1,5 @@
 import React, { FunctionComponent } from "react";
-import SportsBarOutlinedIcon from "@mui/icons-material/SportsBarOutlined";
-
-import { AppBar, Toolbar, Typography, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Tooltip } from "@mui/material";
 
 const Header: FunctionComponent = React.memo(() => {
   const buyMeCoffeUrl = "https://www.buymeacoffee.com/russiafailedstate";
@@ -14,14 +12,15 @@ const Header: FunctionComponent = React.memo(() => {
             "Documenting Russian Equipment Losses During The Russian Invasion Of Ukraine"
           }
         </Typography>
-        <Button
-          variant="contained"
-          color="info"
-          onClick={() => window.open(buyMeCoffeUrl)}
-          endIcon={<SportsBarOutlinedIcon />}
-        >
-          Donate
-        </Button>
+        <Tooltip title="Donate me a beer" aria-label="Donate me a beer">
+          <Button
+            variant="contained"
+            color="info"
+            onClick={() => window.open(buyMeCoffeUrl)}
+          >
+            {"🍺"}
+          </Button>
+        </Tooltip>
       </Toolbar>
     </AppBar>
   );
