@@ -9,7 +9,7 @@ import {
   Area,
   Legend,
 } from "recharts";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { ILossModel } from "../../interfaces";
 
 interface IPoprs {
@@ -21,10 +21,10 @@ const Chart: FunctionComponent<IPoprs> = React.memo(({ data }) => {
 
   return (
     <Paper>
-      <div style={{ height: 600, marginTop: 20 }}>
-        <div style={{ textAlign: "center" }}>
+      <div style={{ height: 550, marginTop: 20 }}>
+        <Typography variant="h6">
           Total count of <b>Losses</b> vehicles and equipment
-        </div>
+        </Typography>
         <ResponsiveContainer>
           <AreaChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
