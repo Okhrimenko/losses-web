@@ -1,88 +1,86 @@
-import React, { FunctionComponent, useMemo } from "react";
-import {
-  Box,
-  Stack,
-  Paper,
-  Avatar,
-  SvgIcon,
-  Typography,
-  CircularProgress,
-  Link,
-} from "@mui/material";
+import React, { FunctionComponent } from "react";
+import { Grid } from "@mui/material";
 import { ILossModel } from "../../interfaces";
-import FireIcon from "@heroicons/react/24/solid/FireIcon";
+import OverviewCard from "./OverviewCard";
+import DescriptionCard from "./DescriptionCard";
 
 interface IOverviewTodayLossesProps {
   data: Array<ILossModel>;
   isLoading: boolean;
 }
 
-const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = ({
-  data,
-  isLoading,
-}) => {
-  const dataSource =
-    "https://www.oryxspioenkop.com/2022/02/attack-on-europe-documenting-equipment.html";
+const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = (
+  props
+) => {
+  const { data, isLoading } = props;
 
-  const onToday = useMemo(() => {
+  const onToday = React.useMemo(() => {
     return data.length > 0
       ? data.reduce((a, b) => (a.Date > b.Date ? a : b))
       : null;
   }, [data]);
 
+  const latUpdate = React.useMemo(() => {
+    return onToday && data.length > 0
+      ? data
+          .slice()
+          .reverse()
+          .find((o) => o.Total < onToday.Total)
+      : null;
+  }, [data, onToday]);
+
   return (
-    <Paper
-      sx={{ p: 2, display: "flex", flexDirection: "column", minHeight: "154" }}
-    >
-      {isLoading ? (
-        <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          minHeight={154}
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <Stack alignItems="stretch" direction="column" spacing={3}>
-          <Typography variant="h6">
-            {"All data is confirmed by photo or video. Data source site: "}
-            <Link target="_blank" rel="noreferrer" href={dataSource}>
-            oryxspioenkop.com
-            </Link>
-          </Typography>
-          <Stack
-            alignItems="flex-start"
-            justifyContent="space-between"
-            direction="row"
-            spacing={3}
-          >
-            <Typography variant="h4">{`Losses on ${onToday?.Date.toString()}`}</Typography>
-            <Avatar
-              sx={{
-                backgroundColor: "error.main",
-                height: 56,
-                width: 56,
-              }}
-            >
-              <SvgIcon>
-                <FireIcon />
-              </SvgIcon>
-            </Avatar>
-          </Stack>
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
-          >
-            <Typography variant="h4">{`Total ${onToday?.Total}`}</Typography>
-            <Typography variant="h4">{`Destroyed ${onToday?.Destroyed}`}</Typography>
-            <Typography variant="h4">{`Captured ${onToday?.Captured}`}</Typography>
-            <Typography variant="h4">{`Damaged ${onToday?.Damaged}`}</Typography>
-            <Typography variant="h4">{`Abandoned ${onToday?.Abandoned}`}</Typography>
-          </Stack>
-        </Stack>
-      )}
-    </Paper>
+    <Grid container spacing={2}>
+      <Grid item xs={12} sm={12} lg={12}>
+        <DescriptionCard />
+      </Grid>
+
+      <Grid item xs={12} sm={6} lg={2}>
+        <OverviewCard
+          isLoading={isLoading}
+          name="Total"
+          difference={onToday?.Total!! - latUpdate?.Total!! || 0}
+          sx={{ height: "100%" }}
+          value={onToday?.Total}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} lg={2}>
+        <OverviewCard
+          isLoading={isLoading}
+          name="Destroyed"
+          difference={onToday?.Destroyed!! - latUpdate?.Destroyed!! || 0}
+          sx={{ height: "100%" }}
+          value={onToday?.Destroyed}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} lg={2}>
+        <OverviewCard
+          isLoading={isLoading}
+          name="Captured"
+          difference={onToday?.Captured!! - latUpdate?.Captured!! || 0}
+          sx={{ height: "100%" }}
+          value={onToday?.Captured}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} lg={2}>
+        <OverviewCard
+          isLoading={isLoading}
+          name="Damaged"
+          difference={onToday?.Damaged!! - latUpdate?.Damaged!! || 0}
+          sx={{ height: "100%" }}
+          value={onToday?.Damaged}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6} lg={2}>
+        <OverviewCard
+          isLoading={isLoading}
+          name="Abandoned"
+          difference={onToday?.Abandoned!! - latUpdate?.Abandoned!! || 0}
+          sx={{ height: "100%" }}
+          value={onToday?.Abandoned}
+        />
+      </Grid>
+    </Grid>
   );
 };
 
