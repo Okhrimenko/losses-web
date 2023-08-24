@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
 import { Grid } from "@mui/material";
-import { ILossModel } from "../../interfaces";
+import { ILossShortModel } from "../../interfaces";
 import OverviewCard from "./OverviewCard";
 import DescriptionCard from "./DescriptionCard";
 
 interface IOverviewTodayLossesProps {
-  data: Array<ILossModel>;
+  data: Array<ILossShortModel>;
   isLoading: boolean;
 }
 
@@ -30,7 +30,7 @@ const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = (
   }, [data, onToday]);
 
   return (
-    <Grid container spacing={2}>
+    <>
       <Grid item xs={12} sm={12} lg={12}>
         <DescriptionCard />
       </Grid>
@@ -80,7 +80,7 @@ const OverviewTodayLosses: FunctionComponent<IOverviewTodayLossesProps> = (
           value={onToday?.Abandoned}
         />
       </Grid>
-    </Grid>
+    </>
   );
 };
 
