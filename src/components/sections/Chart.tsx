@@ -28,7 +28,7 @@ interface IPoprs {
 }
 
 const Chart: FunctionComponent<IPoprs> = React.memo(({ caption, data }) => {
-  const [maxTotal] = React.useState<number>(15000);
+  const [maxTotal] = React.useState<number>(20000);
   const [startDate, setStartDate] = React.useState<Dayjs | null>(null);
   const [endDate, setEndDate] = React.useState<Dayjs | null>(null);
 
